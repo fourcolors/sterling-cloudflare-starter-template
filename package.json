@@ -1,0 +1,58 @@
+{
+  "name": "tip-tap",
+  "private": true,
+  "sideEffects": false,
+  "type": "module",
+  "scripts": {
+    "build": "remix build",
+    "start": "remix dev --json --manual -c \"wrangler pages dev ./public --local-protocol=https --kv=KV --d1=DB\"",
+    "typecheck": "tsc",
+    "cert:regen": "mkcert -cert-file ~/.wrangler/local-cert/cert.pem -key-file ~/.wrangler/local-cert/key.pem localhost 127.0.0.1 192.168.1.65",
+    "test": "vitest",
+    "db:schema:generate": "drizzle-kit generate:sqlite --schema=app/schema.ts --out=migrations",
+    "db:migrate:local": "wrangler d1 migrations apply db-local --local",
+    "db:migrate:staging": "wrangler d1 migrations apply -e staging db-staging",
+    "db:migrate:production": "wrangler d1 migrations apply -e production db-production",
+    "db:runsql:local": "wrangler d1 execute DB --local --command",
+    "db:studio": "npx cross-env LOCAL_DB_PATH=$(find .wrangler/state/v3/d1/miniflare-D1DatabaseObject -type f -name '*.sqlite' -print -quit) drizzle-kit studio",
+    "deploy:staging": "npm run typecheck && npm test && npm run db:migrate:staging && npm run build",
+    "deploy:production": "npm run typecheck && npm test && npm run db:migrate:production && npm run build"
+  },
+  "dependencies": {
+    "@radix-ui/react-icons": "^1.3.0",
+    "@radix-ui/themes": "^2.0.2",
+    "@remix-run/cloudflare": "^2.4.0",
+    "@remix-run/cloudflare-pages": "^2.4.0",
+    "@remix-run/css-bundle": "^2.4.0",
+    "@remix-run/react": "^2.4.0",
+    "@stripe/connect-js": "^3.3.1",
+    "@stripe/react-connect-js": "^3.3.3",
+    "@stripe/react-stripe-js": "^2.5.1",
+    "drizzle-orm": "^0.29.1",
+    "isbot": "^3.6.8",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "remix-auth": "^3.6.0",
+    "remix-auth-google": "^2.0.0",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20230518.0",
+    "@remix-run/dev": "^2.4.0",
+    "@remix-run/eslint-config": "^2.4.0",
+    "@types/react": "^18.2.45",
+    "@types/react-dom": "^18.2.18",
+    "@types/uuid": "^9.0.7",
+    "@vitest/coverage-v8": "^1.0.4",
+    "drizzle-kit": "^0.20.13",
+    "eslint": "^8.56.0",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.10",
+    "vite-tsconfig-paths": "^4.2.2",
+    "vitest": "^1.0.4",
+    "wrangler": "3.21.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
