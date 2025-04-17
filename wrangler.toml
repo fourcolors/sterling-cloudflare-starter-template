@@ -1,4 +1,5 @@
 # https://developers.cloudflare.com/pages/functions/wrangler-configuration
+compatibility_date = "2025-04-17"
 d1_databases = [
 	{ binding = "DB", database_id = "db-local", database_name = "db-local", preview_database_id = "DB" },
 ]

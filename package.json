@@ -5,16 +5,16 @@
   "type": "module",
   "scripts": {
     "build": "remix build",
-    "start": "NODE_ENV=production vite build && wrangler pages dev ./public --local-protocol=https --kv=KV --d1=DB",
-    "dev": "wrangler pages dev ./public --local-protocol=https --kv=KV --d1=DB",
+    "start": "NODE_ENV=production vite build && wrangler pages dev ./public --kv=KV --d1=DB --compatibility-date=2025-04-17",
+    "dev": "wrangler pages dev ./public --kv=KV --d1=DB --compatibility-date=2025-04-17",
     "typecheck": "tsc",
     "cert:regen": "mkcert -cert-file ~/.wrangler/local-cert/cert.pem -key-file ~/.wrangler/local-cert/key.pem localhost 127.0.0.1 192.168.1.65",
     "test": "vitest",
     "db:schema:generate": "drizzle-kit generate:sqlite --schema=app/schema.ts --out=migrations",
-    "db:migrate:local": "wrangler d1 migrations apply db-local --local",
+    "db:migrate:local": "wrangler d1 migrations apply db-local",
     "db:migrate:staging": "wrangler d1 migrations apply -e staging db-staging",
     "db:migrate:production": "wrangler d1 migrations apply -e production db-production",
-    "db:runsql:local": "wrangler d1 execute DB --local --command",
+    "db:runsql:local": "wrangler d1 execute DB --command",
     "db:studio": "bunx cross-env LOCAL_DB_PATH=$(find .wrangler/state/v3/d1/miniflare-D1DatabaseObject -type f -name '*.sqlite' -print -quit) drizzle-kit studio",
     "deploy:staging": "bun run typecheck && bun run test && bun run db:migrate:staging && bun run build",
     "deploy:production": "bun run typecheck && bun run test && bun run db:migrate:production && bun run build"
@@ -56,7 +56,7 @@
     "vite": "^5.0.10",
     "vite-tsconfig-paths": "^4.2.2",
     "vitest": "^1.0.4",
-    "wrangler": "3.21.0"
+    "wrangler": "^4.12.0"
   },
   "engines": {
     "node": ">=18.0.0"
