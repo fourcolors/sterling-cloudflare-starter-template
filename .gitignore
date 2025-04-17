@@ -1,8 +1,21 @@
-node_modules
-
-/.cache
-/functions/\[\[path\]\].js
-/functions/\[\[path\]\].js.map
+# Node/Bun/Vite/Remix build artifacts
+node_modules/
+bun.lockb
+.cache/
+build/
+dist/
+*.log
+*.sqlite
+.env*
+# VSCode
+.vscode/
+# Mac system files
+.DS_Store
+# Misc
+*.local
+*.swp
+/functions/[[path]].js
+/functions/[[path]].js.map
 /functions/metafile.*
 /functions/version.txt
 /public/build

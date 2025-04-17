@@ -1,7 +1,7 @@
 import { json, type LoaderFunctionArgs } from "@remix-run/cloudflare";
 import { eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/d1";
-// import "@radix-ui/themes/styles.css";
+import "@radix-ui/themes/styles.css";
 import { isAuthenticated } from "~/utils/authentication";
 import { useLoaderData } from "@remix-run/react";
 import { type Env } from "~/models/env";

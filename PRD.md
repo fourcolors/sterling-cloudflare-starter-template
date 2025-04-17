@@ -33,3 +33,26 @@ Create a reusable, production-ready template for rapidly spinning up new Remix (
 - Should be easily forkable and customizable.
 - Must use Bun for all package management and runtime scripts.
 - Must use Mise for toolchain management.
+
+## CSS & TailwindCSS Integration (2025-04-16)
+
+### Approach
+- We use Vite as the build tool for Remix, Bun, and ESM compatibility.
+- All global styles (TailwindCSS, Radix UI themes, etc.) are imported in `app/styles/tailwind.css` and loaded via a top-level side-effect import in `app/root.tsx`.
+- No `links` function or `cssBundleHref` logic is used; Vite injects CSS automatically in dev and build.
+
+### Rationale
+- The old Remix CSS bundle approach (`cssBundleHref`, `<Links />`, etc.) is not compatible with ESM+Bun+Vite.
+- Vite is the recommended solution for modern Remix projects, providing HMR and seamless CSS injection.
+
+### Migration Notes
+- If migrating from a classic Remix setup, remove all `cssBundleHref` and `<Links />` logic from `app/root.tsx`.
+- Import all global styles at the top of `app/root.tsx`:
+  ```ts
+  import "~/styles/tailwind.css";
+  import "../../public/styles/vendor/radix-themes.css";
+  ```
+- Radix UI theme CSS is copied to `public/styles/vendor/radix-themes.css` for global availability.
+
+### Result
+- Styles are injected by Vite in dev and build. HMR works out of the box. No manual `<link>` tags needed for CSS.
