@@ -22,7 +22,8 @@ A modern, production-ready starter template for building Remix applications on C
 bun install
 bun run dev
 ```
-- Visit the local dev server URL (shown in your terminal, e.g. http://localhost:5173/)
+- This runs Wrangler's dev server, emulating Cloudflare Pages/Workers/D1 locally.
+- Visit the local dev server URL (shown in your terminal, e.g. http://localhost:8788/)
 
 ### Production Build
 ```sh

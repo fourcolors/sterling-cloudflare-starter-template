@@ -6,7 +6,7 @@
   "scripts": {
     "build": "remix build",
     "start": "NODE_ENV=production vite build && wrangler pages dev ./public --local-protocol=https --kv=KV --d1=DB",
-    "dev": "vite",
+    "dev": "wrangler pages dev ./public --local-protocol=https --kv=KV --d1=DB",
     "typecheck": "tsc",
     "cert:regen": "mkcert -cert-file ~/.wrangler/local-cert/cert.pem -key-file ~/.wrangler/local-cert/key.pem localhost 127.0.0.1 192.168.1.65",
     "test": "vitest",
